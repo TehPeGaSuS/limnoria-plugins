@@ -1,5 +1,6 @@
 ###
 # Copyright (c) 2015, butterscotchstallion
+# Fixes by TheMythPT to Icecast 2.4.x, 26/01/2019
 # Based on work by Copyright (c) 2010, melodeath
 # All rights reserved.
 #
@@ -78,7 +79,7 @@ class SpiffyRadio(callbacks.Plugin):
 							for channel in channels:
 								self.irc.sendMsg(ircmsgs.privmsg(channel, message))
 						else:
-							track_info = (self.last_track["artist"], self.last_track["title"])
+							track_info = (self.last_track["title"])
 							self.log.info("SpiffyRadio: track has not changed - still playing \"%s - %s\". Not announcing." % track_info)
 
 			except Exception as e:
@@ -104,7 +105,7 @@ class SpiffyRadio(callbacks.Plugin):
 
 				if response is not None and "icestats" in response:
 					try:
-						current_track = response["icestats"]["source"][0]
+						current_track = response["icestats"]["source"]
 
 						"""
 						This horrible API returns an object if there is only one track
@@ -114,10 +115,10 @@ class SpiffyRadio(callbacks.Plugin):
 						#	current_track = response["icestats"]["source"]
 
 						if self.last_track is not None:
-							artistChanged = current_track["artist"] != self.last_track["artist"]
+							artistChanged = current_track["server_name"] != self.last_track["server_name"]
 							trackChanged = current_track["title"] != self.last_track["title"]
 						
-						self.track_has_changed = artistChanged and trackChanged
+						self.track_has_changed = trackChanged
 						self.last_track = current_track
 
 						return current_track				
@@ -138,7 +139,7 @@ class SpiffyRadio(callbacks.Plugin):
 	def get_now_playing_template(self, current_track):
 		template = self.registryValue("nowPlayingTemplate")
 
-		template = template.replace("$artist", current_track["artist"])
+		template = template.replace("$artist", current_track["server_name"])
 		template = template.replace("$title", current_track["title"])
 		template = template.replace("$listeners", str(current_track["listeners"]))
 		template = template.replace("$listenurl", current_track["listenurl"])
