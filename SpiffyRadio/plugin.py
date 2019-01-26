@@ -1,5 +1,6 @@
 ###
 # Copyright (c) 2015, butterscotchstallion
+# Fixes by TheMythPT to Icecast 2.4.x, 26/01/2019
 # Based on work by Copyright (c) 2010, melodeath
 # All rights reserved.
 #
