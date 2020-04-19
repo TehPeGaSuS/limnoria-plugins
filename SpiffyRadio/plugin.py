@@ -48,9 +48,7 @@ class SpiffyRadio(callbacks.Plugin):
 		self.remove_announce_interval()
 
 		if not self.auto_announce_interval:
-			self.auto_announce_interval = schedule.addPeriodicEvent(self.announce_to_channels, 
-																	interval,
-																	"SpiffyRadioAutoAnnounce")
+			self.auto_announce_interval = schedule.addPeriodicEvent(self.announce_to_channels, interval, "SpiffyRadioAutoAnnounce")
 
 	def remove_announce_interval(self):
 		try:
