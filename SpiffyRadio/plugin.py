@@ -140,7 +140,7 @@ class SpiffyRadio(callbacks.Plugin):
 		template = template.replace("$artist", current_track["server_name"])
 		template = template.replace("$title", current_track["title"])
 		template = template.replace("$listeners", str(current_track["listeners"]))
-		template = template.replace("$listenurl", current_track["listenurl"])
+		template = template.replace("$listenurl", current_track["server_url"])
 
 		return template
 
